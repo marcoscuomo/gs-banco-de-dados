@@ -5,13 +5,13 @@ import Appointment from '../models/Appointment';
 import AppointmentRepository from '../repositories/AppointmentRepository';
 
 interface RequestDTO {
-    provider: string;
+    provider_id: string;
     date: Date;
 }
 
 class CreateAppointmentService {
 
-    public async execute({date, provider}: RequestDTO): Promise<Appointment> {
+    public async execute({date, provider_id}: RequestDTO): Promise<Appointment> {
 
         const appointmentRepository = getCustomRepository(AppointmentRepository);
 
@@ -24,7 +24,7 @@ class CreateAppointmentService {
         }
 
         // Criamos o objeto, a instância
-        const appointment = appointmentRepository.create({provider, date: appointmentDate});
+        const appointment = appointmentRepository.create({provider_id, date: appointmentDate});
 
         // Salvamos no banco
         await appointmentRepository.save(appointment);
