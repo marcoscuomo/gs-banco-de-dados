@@ -3,6 +3,7 @@ import { getCustomRepository } from 'typeorm';
 
 import Appointment from '../models/Appointment';
 import AppointmentRepository from '../repositories/AppointmentRepository';
+import AppError from '../erros/AppError';
 
 interface RequestDTO {
     provider_id: string;
@@ -20,7 +21,7 @@ class CreateAppointmentService {
         const findAppointmentInSameDate = await appointmentRepository.findByDate(appointmentDate);
 
         if(findAppointmentInSameDate){
-            throw Error('This appointment is already booked');
+            throw new AppError('This appointment is already booked');
         }
 
         // Criamos o objeto, a instância
